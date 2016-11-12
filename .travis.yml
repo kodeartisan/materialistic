@@ -36,8 +36,8 @@ cache:
     - $HOME/.gradle/wrapper/
 script: "./gradlew $TASK"
 env:
-    - TASK="assembleDebug assembleRelease"
-    - TASK="lintDebug testDebug"
+    - TASK="lintDebug -Pci"
+    - TASK="testDebug -Pci"
 after_success:
-    - if [ "$TASK" = "lintDebug testDebug" ]; then ./gradlew jacocoTestReport coveralls; fi
+    - if [[ $TASK = test* ]]; then ./gradlew jacocoTestReport coveralls; fi
 
